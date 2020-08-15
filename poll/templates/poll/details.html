@@ -1,0 +1,10 @@
+{% extends "poll/base.html" %}
+
+{% block content %}
+    <h2>{{question.question_text}}</h2>
+    <ul>
+        {% for choice in question.choice_set.all %}
+            <li><a href="">{{ choice.choice_text  }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
