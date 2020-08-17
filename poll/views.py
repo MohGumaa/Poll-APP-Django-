@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
@@ -19,29 +20,34 @@ class IndexView(generic.ListView):
     context_object_name ='latest_question_list'
 
     def get_queryset(self):
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte = timezone.now()
+        ).order_by('-pub_date')[:5]
 
 
-def detail(request, pk):
-    question = get_object_or_404(Question, id=pk)
-    if request.method == "POST":
-        form = UpdateQuestion(request.POST, instance=question)
-        if form.is_valid():
-            form.save()
-            return redirect('poll:home')
-    else:
-        form = UpdateQuestion(instance=question)
+# def detail(request, pk):
+#     question = get_object_or_404(Question, id=pk)
+#     if request.method == "POST":
+#         form = UpdateQuestion(request.POST, instance=question)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('poll:home')
+#     else:
+#         form = UpdateQuestion(instance=question)
 
-    context = {
-        "question": question,
-        "form": form
-    }
+#     context = {
+#         "question": question,
+#         "form": form
+#     }
 
-    return render(request, 'poll/details.html', context)
+    # return render(request, 'poll/details.html', context)
 
-# class DetailView(generic.DetailView):
-#     model = Question
-#     template_name = "poll/details.html"
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "poll/details.html"
+
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 

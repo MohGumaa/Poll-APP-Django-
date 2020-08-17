@@ -2,12 +2,7 @@
 
 {% block content %}
     <ul>
-        <form method="post">
-            {% csrf_token %}
-            {{form}}
-            <button>Update</button>
-        </form>
-        <hr>
+        <h1>{{question}}</h1>
         <form method="post" action="{% url 'poll:vote' question.id %}">
             {% csrf_token %}
             {% for choice in question.choice_set.all %}
