@@ -1,0 +1,29 @@
+* {
+    maring: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 980px;
+    margin: 5px auto;
+    pading: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+li a {
+    color: green;
+    font-size: 2rem;
+}
+
+
